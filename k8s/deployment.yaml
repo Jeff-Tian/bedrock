@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bedrock
+    tier: backend
+    deployedBy: deploy-node-app
+  name: bedrock
+spec:
+  minReadySeconds: 5
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: bedrock
+      tier: backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: bedrock
+        tier: backend
+        deployedBy: deploy-node-app
+    spec:
+      containers:
+        - image: jefftian/bedrock
+          imagePullPolicy: Always
+          name: bedrock
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          envFrom:
+            - secretRef:
+                name: bedrock-secrets
+#          readinessProbe:
+#            httpGet:
+#              port: 8080
+#              path: /
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+        - name: regcred
