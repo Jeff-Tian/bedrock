@@ -32,7 +32,10 @@ router.post('/message', async (ctx) => {
         });
     }
 
-    rtnMsg = rtnMsg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    rtnMsg = rtnMsg.trim()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
 
     const toUserName = getFromUserName(json);
     const fromUserName = getToUserName(json);
@@ -49,7 +52,7 @@ router.post('/message', async (ctx) => {
     <FromUserName><![CDATA[${fromUserName}]]></FromUserName>
     <CreateTime>${createTime}</CreateTime>
     <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[${rtnMsg.substring(0, 100)}]]></Content>
+    <Content><![CDATA[${rtnMsg.substring(0, 80)}]]></Content>
 </xml>`
 
     ctx.set('Content-Type', 'text/plain');
