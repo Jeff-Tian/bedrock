@@ -49,7 +49,7 @@ router.post('/message', async (ctx) => {
     <FromUserName><![CDATA[${fromUserName}]]></FromUserName>
     <CreateTime>${createTime}</CreateTime>
     <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[${rtnMsg}]]></Content>
+    <Content><![CDATA[${rtnMsg.substring(0, 100)}]]></Content>
 </xml>`
 
     ctx.set('Content-Type', 'text/plain');
