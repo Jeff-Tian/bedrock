@@ -106,7 +106,7 @@ module.exports = {
             if (cache[messageId]) {
                 return cache[messageId];
             } else {
-                const answer = await chat({question, modelId, maxTokensToSample, temperature, topP, topK});
+                const answer = chat({question, modelId, maxTokensToSample, temperature, topP, topK});
                 cache[messageId] = answer;
                 return answer;
             }
