@@ -32,6 +32,8 @@ router.post('/message', async (ctx) => {
         });
     }
 
+    rtnMsg = rtnMsg.replace(/\r?\n/g, ' ')
+
     const toUserName = getFromUserName(json);
     const fromUserName = getToUserName(json);
     const createTime = new Date().toLocaleDateString('en-US', {
