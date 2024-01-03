@@ -31,7 +31,7 @@ router.post('/message', async (ctx) => {
         rtnMsg = await memoizeChat({
             question: content,
             messageId: messageId
-        })();
+        });
     }
 
     rtnMsg = rtnMsg.trim()

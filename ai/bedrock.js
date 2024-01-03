@@ -3,6 +3,8 @@ const {
     InvokeModelCommand,
 } = require("@aws-sdk/client-bedrock-runtime");
 
+const cache = {}
+
 const chat = async ({question, modelId, maxTokensToSample, temperature, topP, topK}) => {
     const input = {
         modelId: modelId ?? 'anthropic.claude-v2',
@@ -99,17 +101,13 @@ module.exports = {
             return `抱歉，服务出错了，原因是： ${ex.message}`;
         }
     },
-    memoizeChat({question, modelId, maxTokensToSample, temperature, topP, topK, messageId}) {
-        const cache = {}
-
-        return async () => {
-            if (cache[messageId]) {
-                return cache[messageId];
-            } else {
-                const answer = chat({question, modelId, maxTokensToSample, temperature, topP, topK});
-                cache[messageId] = answer;
-                return answer;
-            }
+    async memoizeChat({question, modelId, maxTokensToSample, temperature, topP, topK, messageId}) {
+        if (cache[messageId]) {
+            return cache[messageId];
+        } else {
+            const answer = chat({question, modelId, maxTokensToSample, temperature, topP, topK});
+            cache[messageId] = answer;
+            return answer;
         }
     }
 }
