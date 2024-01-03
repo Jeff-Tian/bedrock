@@ -18,8 +18,6 @@ router.post('/message', async (ctx) => {
     const xmlString = ctx.request.body;
     console.log('xml = ', xmlString);
     const json = convert.xml2js(xmlString);
-    console.log('received message: ', json);
-
     const content = getContent(json);
     const messageId = getMessageId(json);
     console.log("content = ", content, messageId);
@@ -28,10 +26,10 @@ router.post('/message', async (ctx) => {
     if (content.toUpperCase().indexOf('LEGO') >= 0 || content.indexOf('乐高') >= 0 || content.toUpperCase().indexOf('DIGITAL') >= 0 || content.indexOf('数字化') >= 0 || content.toUpperCase().indexOf('JUDY') >= 0) {
         rtnMsg = 'You want to know more about the LEGO Group and the Digitization Journey? Please check our Best Leader Ever, Judy\'s video here:  https://d2a25ztk1zitcr.cloudfront.net/%E4%B9%90%E9%AB%98%E9%87%87%E8%AE%BF.m4v '
     } else {
-        rtnMsg = await memoizeChat({
+        rtnMsg = await Promise.race([memoizeChat({
             question: content,
             messageId: messageId
-        });
+        })]);
     }
 
     rtnMsg = rtnMsg.trim()

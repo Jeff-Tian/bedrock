@@ -4,6 +4,14 @@ const {
 } = require("@aws-sdk/client-bedrock-runtime");
 
 const cache = {}
+const count = {}
+
+const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+const fail = async () => {
+    await sleep(5000);
+    return '抱歉，服务出错了，原因是： 服务超时';
+}
 
 const chat = async ({question, modelId, maxTokensToSample, temperature, topP, topK}) => {
     const input = {
@@ -102,8 +110,11 @@ module.exports = {
         }
     },
     async memoizeChat({question, modelId, maxTokensToSample, temperature, topP, topK, messageId}) {
+        count[messageId] = count[messageId] ?? 0;
+        count[messageId] = count[messageId] + 1;
+
         if (cache[messageId]) {
-            return cache[messageId];
+            return Promise.race([cache[messageId], fail()]);
         } else {
             const answer = chat({question, modelId, maxTokensToSample, temperature, topP, topK});
             cache[messageId] = answer;
