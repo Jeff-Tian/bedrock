@@ -7,5 +7,8 @@ module.exports = {
   },
   getContent: (xml) => {
     return xml.elements[0].elements[4].elements[0].cdata;
+  },
+  getMessageId: (xml) => {
+    return xml.elements[0].elements[2].elements[0].text;
   }
 }
