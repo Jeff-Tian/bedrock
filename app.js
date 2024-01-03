@@ -32,7 +32,7 @@ router.post('/message', async (ctx) => {
         });
     }
 
-    rtnMsg = rtnMsg.replace(/\r?\n/g, ' ')
+    rtnMsg = rtnMsg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
     const toUserName = getFromUserName(json);
     const fromUserName = getToUserName(json);
