@@ -39,7 +39,12 @@ module.exports = {
       console.log("-------------------------");
 
       const json = JSON.parse(jsonString);
-      return json.completion;
+
+      if(json.stop_reason === 'stop_sequence') {
+        return json.completion;
+      } else {
+        return '';
+      }
     } catch (ex) {
       console.error('chat error = ', ex);
 
