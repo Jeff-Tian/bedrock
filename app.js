@@ -36,7 +36,6 @@ router.post('/message', async (ctx) => {
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .substring(0, 70)
     ;
 
     const toUserName = getFromUserName(json);
