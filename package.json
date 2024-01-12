@@ -8,6 +8,10 @@
   },
   "scripts": {
     "start": "node app.js",
-    "ci": "echo 'success'"
+    "ci": "echo 'success'",
+    "test": "mocha --recursive --exit"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
   }
 }
