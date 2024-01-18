@@ -56,6 +56,7 @@ jobs:
       - run: sh .github/dockerize.sh ${{ github.sha }}
 
   deploy-okteto:
+    if: ${{false}} # always skip this step as my okteto env was deleted
     runs-on: ubuntu-latest
     needs: build-docker-image
     steps:

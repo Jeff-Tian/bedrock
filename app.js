@@ -16,7 +16,7 @@ const chats = db.collection('chats');
 container.set('chats', chats);
 console.log('chats = ', container.get('chats'));
 
-container.set('SessionDuration', 3000);
+container.set('SessionDuration', 2500);
 container.set('SessionCount', 3);
 
 const Koa = require('koa');

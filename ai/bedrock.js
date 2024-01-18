@@ -140,8 +140,10 @@ bedrock.chatWithRetry = async ({
         const progress = await bedrock.recall(messageId);
         console.log('chatwithretry: progress = ', progress);
         if (progress.called >= 3) {
+            // 超时3次后，调用超时，则不再等待，直接返回兜底回复。
             return `抱歉，我还没想好怎么回答。不过，稍后我可能会回复，你可以通过这个链接查看： ${hostname}/recall?messageId=${messageId}`;
         } else {
+            // 前两次调用即使超时，仍然继续等待。
             return await memoizeChat;
         }
     }
