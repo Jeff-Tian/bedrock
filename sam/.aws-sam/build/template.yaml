@@ -25,3 +25,53 @@ Resources:
           Properties:
             Path: /{any+}
             Method: ANY
+      Role:
+        Fn::GetAtt:
+        - LambdaDynamoDBExecutionRole
+        - Arn
+  LambdaDynamoDBExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+      - PolicyName: LambdaDynamoDBAccessPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:Scan
+            - dynamodb:Query
+            Resource:
+              Fn::GetAtt:
+              - ChatsTable
+              - Arn
+  ChatsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: outstanding-necklace-frogCyclicDB
+      AttributeDefinitions:
+      - AttributeName: messageId
+        AttributeType: S
+      KeySchema:
+      - AttributeName: messageId
+        KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+Outputs:
+  ChatsTableArn:
+    Description: ARN of the Chats DynamoDB table
+    Value:
+      Fn::GetAtt:
+      - ChatsTable
+      - Arn
