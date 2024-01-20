@@ -30,4 +30,4 @@ jobs:
       # Prevent prompts and failure when the stack is unchanged
       - run: |
           cd sam
-          sam deploy --auto-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides AWSAccessKeyId=${{ secrets.AWS_ACCESS_KEY }} AWSSecretAccessKey=${{ secrets.AWS_SECRET_KEY }}
+          sam deploy --confirm-changeset --no-fail-on-empty-changeset --parameter-overrides AWSAccessKeyId=${{ secrets.AWS_ACCESS_KEY }} AWSSecretAccessKey=${{ secrets.AWS_SECRET_KEY }}
