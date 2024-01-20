@@ -15,7 +15,7 @@
     "test": "mocha --recursive --exit",
     "zip": "zip -r sam/dist.zip .",
     "serverless-local": "yarn zip&&cd sam&&sam build&&sam local start-api",
-    "deploy": "rm sam/dist.zip&&yarn zip&&cd sam&&sam build&&AWS_PROFILE=lambda-doc-rotary sam deploy --guided"
+    "deploy": "rm sam/dist.zip&&yarn zip&&cd sam&&sam build&&export $(cat '.env' | xargs)&&AWS_PROFILE=lambda-doc-rotary sam deploy  --parameter-overrides AWSAccessKeyId=$AWSAccessKeyId AWSSecretAccessKey=$AWSSecretAccessKey --guided"
   },
   "devDependencies": {
     "mocha": "^10.2.0"

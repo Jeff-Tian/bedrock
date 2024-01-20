@@ -141,3 +141,4 @@ script3.ps1
 
 .env
 sam/*.zip
+sam/.aws-sam/build/template.yaml

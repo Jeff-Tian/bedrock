@@ -1,5 +1,14 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  AWSAccessKeyId:
+    Type: String
+    Description: AWS Access Key ID
+  AWSSecretAccessKey:
+    Type: String
+    Description: AWS Secret Access Key
+
 Resources:
   EasySchoolBackendFunction:
     Type: AWS::Serverless::Function
