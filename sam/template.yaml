@@ -9,6 +9,14 @@ Resources:
       Runtime: nodejs18.x
       Timeout: 900
       PackageType: Zip
+      Environment:
+        Variables:
+          AWSAccessKeyId: !Ref AWSAccessKeyId
+          AWSSecretAccessKey: !Ref AWSSecretAccessKey
+          CYCLIC_DB: outstanding-necklace-frogCyclicDB
+          CYCLIC_APP_ID: outstanding-necklace-frog
+          CYCLIC_URL: https://outstanding-necklace-frog.cyclic.app
+          CYCLIC_BUCKET_NAME: cyclic-outstanding-necklace-frog-eu-north-1
       Events:
         ApiEvent:
           Type: Api

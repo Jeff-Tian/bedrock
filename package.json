@@ -14,7 +14,8 @@
     "ci": "yarn test",
     "test": "mocha --recursive --exit",
     "zip": "zip -r sam/dist.zip .",
-    "serverless-local": "yarn zip&&cd sam&&sam build&&sam local start-api"
+    "serverless-local": "yarn zip&&cd sam&&sam build&&sam local start-api",
+    "deploy": "yarn zip&&cd sam&&sam build&&AWS_PROFILE=lambda-doc-rotary sam deploy --guided"
   },
   "devDependencies": {
     "mocha": "^10.2.0"

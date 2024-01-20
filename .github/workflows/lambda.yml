@@ -30,4 +30,4 @@ jobs:
       # Prevent prompts and failure when the stack is unchanged
       - run: |
           cd sam
-          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides CyclicDBEnvVar=${{ secrets.AWSAccessKeyId }} AWSSecretAccessKey=${{ secrets.AWSSecretAccessKey }}
