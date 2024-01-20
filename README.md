@@ -127,7 +127,7 @@ yarn test
 
 如果采用了 Redis 缓存，可以设置成多个 Pod，但是，需要注意，如果 Pod 重启，缓存会丢失，所以，需要设置成多个 Pod 的时候，需要使用 Redis 缓存。
 
-本来本项目部署在 Okteto 提供的免费 Kubernetes 集群上，域名是 https://bedrock-backstage-jeff-tian.cloud.okteto.net/message ，但是在 2024 年 1 月 15 日，Okteto 关闭免费服务。于是对本项目进行了重新部署，选择 cyclic，它是一个无服务器平台，不能再使用内存缓存，因为微信服务的消息重试会打在不同的实例上。好在，cyclic 提供了方便的 DynamoDb 存储，于是，将缓存从内存缓存改成了 DynamoDb 缓存。
+本来本项目部署在 Okteto 提供的免费 Kubernetes 集群上，域名是 https://bedrock-backstage-jeff-tian.cloud.okteto.net/message ，但是在 2024 年 1 月 15 日，Okteto 关闭免费服务。于是对本项目进行了重新部署，选择 [cyclic](https://app.cyclic.sh/#/join/Jeff-Tian)，它是一个无服务器平台，不能再使用内存缓存，因为微信服务的消息重试会打在不同的实例上。好在，[cyclic](https://app.cyclic.sh/#/join/Jeff-Tian) 提供了方便的 DynamoDb 存储，于是，将缓存从内存缓存改成了 DynamoDb 缓存。
 
 ## 缓存
 
@@ -143,11 +143,29 @@ yarn test
 
 ### 代码依赖
 
-本项目基于 Koa js 和 AWS 的 Bedrock SDK，并依赖 Cyclic 提供的对 AWS SDK 的上层封装。
+本项目基于 Koa js 和 AWS 的 Bedrock SDK，并依赖 [Cyclic](https://app.cyclic.sh/#/join/Jeff-Tian) 提供的对 AWS SDK 的上层封装。
 
 ### 基础设施依赖
 
-本项目依赖 AWS Bedrock 服务，并且需要 Cyclic 平台 或者 AWS DynamoDb 和任意的 Kubernetes 平台。
+本项目依赖 AWS Bedrock 服务，并且需要 [Cyclic 平台](https://app.cyclic.sh/#/join/Jeff-Tian) 或者 AWS DynamoDb 和任意的 Kubernetes 平台。
+
+## 部署
+
+可以部署到多个环境，包括本地、Vercel、AWS Lambda、Cyclic 和 Kubernetes 等等。推荐使用 GitHub Actions 进行自动部署。
+
+### 部署到 Cyclic
+
+1. 在 [Cyclic](https://app.cyclic.sh/#/join/Jeff-Tian) 上创建一个项目
+2. 链接到你的 GitHub 仓库
+3. 自动部署
+
+### 部署到 Kubernetes
+
+参考 GitHub Actions 的配置文件，将其中的环境变量替换成你自己的即可。
+
+### 部署到 AWS Lambda
+
+参考 GitHub Actions 的配置文件，将其中的环境变量替换成你自己的即可。
 
 ## 相关文章
 

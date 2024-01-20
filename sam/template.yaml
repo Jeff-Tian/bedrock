@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  EasySchoolBackendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./dist.zip
+      Handler: dist/serverless/serverless.handler
+      Runtime: nodejs18.x
+      Timeout: 900
+      PackageType: Zip
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /{any+}
+            Method: ANY

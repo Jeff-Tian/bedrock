@@ -138,3 +138,6 @@ results3.txt
 script.ps1
 script2.ps1
 script3.ps1
+
+.env
+sam/*.zip

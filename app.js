@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const container = require('./container');
 
 const {BedrockRuntimeClient} = require("@aws-sdk/client-bedrock-runtime");
@@ -109,5 +111,4 @@ router.get('/recall', async (ctx) => {
 
 app.use(router.routes());
 
-
-app.listen(8080);
+module.exports = app;
