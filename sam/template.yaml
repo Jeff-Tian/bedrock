@@ -48,7 +48,7 @@ Resources:
 
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-        
+
       Policies:
         - PolicyName: LambdaDynamoDBAccessPolicy
           PolicyDocument:
@@ -69,11 +69,36 @@ Resources:
     Properties:
       TableName: outstanding-necklace-frogCyclicDB
       AttributeDefinitions:
-        - AttributeName: messageId
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+        - AttributeName: keys_gsi
+          AttributeType: S
+        - AttributeName: keys_gsi_sk
+          AttributeType: S
+        - AttributeName: gsi_prj
           AttributeType: S
       KeySchema:
-        - AttributeName: messageId
+        - AttributeName: pk
           KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      GlobalSecondaryIndexes:
+        - IndexName: keys_gsi
+          KeySchema:
+            - AttributeName: keys_gsi
+              KeyType: HASH
+            - AttributeName: keys_gsi_sk
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL # 或者指定具体的属性
+        - IndexName: gsi_prj
+          KeySchema:
+            - AttributeName: gsi_prj
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL # 或者指定具体的属性
       BillingMode: PAY_PER_REQUEST
 
 Outputs:
