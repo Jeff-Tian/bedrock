@@ -15,7 +15,7 @@
     "test": "mocha --recursive --exit",
     "zip": "zip -r sam/dist.zip . -x \".git/*\" -x \".git\"",
     "serverless-local": "yarn zip&&cd sam&&sam build&&sam local start-api",
-    "deploy": "rm sam/dist.zip&&yarn zip&&cd sam&&sam build&&export $(cat '.env' | xargs)&&AWS_PROFILE=lambda-doc-rotary sam deploy  --parameter-overrides AWSAccessKeyId=$AWSAccessKeyId AWSSecretAccessKey=$AWSSecretAccessKey --guided",
+    "deploy": "rm sam/dist.zip&&yarn zip&&cd sam&&sam build&&export $(cat '.env' | xargs)&&AWS_PROFILE=lambda-doc-rotary sam deploy  --parameter-overrides AWSAccessKeyId=$AWSAccessKeyId AWSSecretAccessKey=$AWSSecretAccessKey",
     "destroy": "cd sam&&export $(cat '.env' | xargs)&&AWS_PROFILE=lambda-doc-rotary sam delete"
   },
   "devDependencies": {

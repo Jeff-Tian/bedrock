@@ -165,7 +165,7 @@ yarn test
 
 ### 部署到 AWS Lambda
 
-参考 GitHub Actions 的配置文件，将其中的环境变量替换成你自己的即可。
+参考 GitHub Actions 的配置文件，将其中的环境变量替换成你自己的即可。主要是利用了 AWS SAM，详见《[将免费架构进行到底，使用 AWS SAM 将 Koa 服务从 Cyclic 迁移到 Lambda - Jeff Tian的文章 - 知乎](https://zhuanlan.zhihu.com/p/678946260) 》。
 
 ## 相关文章
 
