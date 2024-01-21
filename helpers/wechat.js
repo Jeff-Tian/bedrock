@@ -16,6 +16,11 @@ const wechatMessageHelper = {
         return xml.elements[0].elements[4].elements[0].cdata;
     },
     getMessageId: (xml) => {
+        const type = wechatMessageHelper.getMessageType(xml);
+        if (type === 'event' && wechatMessageHelper.getMessageEventType(xml) === 'subscribe') {
+            return `${wechatMessageHelper.getMessageCreateTime(xml)}-${wechatMessageHelper.getFromUserName(xml)}`;
+        }
+
         return xml.elements[0].elements.filter(e => e.name === 'MsgId')[0].elements[0].text;
     },
     getRecognition: (xml) => {
@@ -24,6 +29,12 @@ const wechatMessageHelper = {
     },
     getMessageType: (xml) => {
         return xml.elements[0].elements.filter(e => e.name === 'MsgType')[0].elements[0].cdata;
+    },
+    getMessageEventType: (xml) => {
+        return xml.elements[0].elements.filter(e => e.name === 'Event')[0].elements[0].cdata;
+    },
+    getMessageCreateTime: (xml) => {
+        return xml.elements[0].elements.filter(e => e.name === 'CreateTime')[0].elements[0].text;
     }
 }
 

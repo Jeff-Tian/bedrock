@@ -1,5 +1,12 @@
 const assert = require('assert')
-const {getFromUserName, getMessageId, getRecognition, getMessageType, getContent} = require("../../helpers/wechat");
+const {
+    getFromUserName,
+    getMessageId,
+    getRecognition,
+    getMessageType,
+    getContent,
+    getMessageEventType
+} = require("../../helpers/wechat");
 const convert = require('xml-js');
 
 describe('wechat messages', () => {
@@ -137,6 +144,24 @@ describe('wechat messages', () => {
 </xml>`
             const json = convert.xml2js(xml);
             assert.equal(getContent(json), '')
+        })
+    })
+
+    describe('subscribe message', () => {
+        const xml = `<xml> <ToUserName><![CDATA[gh_e94fc16b2540]]></ToUserName> <FromUserName><![CDATA[oPi_Esy9hF7BXeym4fgYrqlHpiSk]]></FromUserName> <CreateTime>1705804333</CreateTime> <MsgType><![CDATA[event]]></MsgType> <Event><![CDATA[subscribe]]></Event> <EventKey><![CDATA[]]></EventKey> <Encrypt><![CDATA[wBrqMYbAtFajMHLedGs1pL631mC+cIZgKqAA63DIJil/PJU8LDIznAi0/+MuRXerLG+abCaA9xnK9Jo7IXpO37z00ZL1fRhGs4pAQ8uN45DA8z2GFoZvI9PjNbE7Q6ptzjVUu2zmroNidTOYrE70jPM951cHhc+bDIPEvAjtdgZ8cy1xls6RvEhtLLmJp5VkGTJKNfiPBo4cDfagOIPeN7oSrzrAwcH4KScxudwtYTYPQaVmUzaKLpuUBPA+BXj4Y8g7IO8+eVIFu2HsiW1aURhOblUg8qMs6qJeP6uAWhTX6wPetGg0M6Q3D4ziFIGGpMEiBDTGQ74HGTd0KWd2f74AiM92PTRBkuQvpS+ETaUVEjq9HXgEdfARU3wEMTdD4bI9bXh3scBM5dlHFCkoepugLwyq0ZG65jcFj5jTe34=]]></Encrypt> </xml>`
+
+        const json = convert.xml2js(xml);
+
+        it('gets message type', () => {
+            assert.equal(getMessageType(json), 'event')
+        })
+
+        it('gets message event type', () => {
+            assert.equal(getMessageEventType(json), 'subscribe')
+        })
+
+        it('gets message id fallback to create time plus from username', () => {
+            assert.equal(getMessageId(json), '1705804333-oPi_Esy9hF7BXeym4fgYrqlHpiSk')
         })
     })
 })
