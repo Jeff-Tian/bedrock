@@ -27,7 +27,7 @@ const router = require('@koa/router')();
 const convert = require('xml-js');
 
 const {koaBody} = require('koa-body');
-const {getFromUserName, getToUserName, getContent, getMessageId} = require("./helpers/wechat");
+const {getFromUserName, getToUserName, getContent, getMessageId, getMediaId} = require("./helpers/wechat");
 const {chatWithRetry, recall} = require("./ai/bedrock");
 
 app.use(koaBody({includeUnparsed: true}));
@@ -48,7 +48,7 @@ router.post('/message', async (ctx) => {
 
     let rtnMsg = '';
     if (!content) {
-        rtnMsg = '抱歉，我没听清楚你说什么。';
+        rtnMsg = '抱歉，我没听清楚你说什么。 附语音消息媒体id，可以调用获取临时素材接口拉取该媒体：' + getMediaId(json);
     } else {
         try {
             rtnMsg = await chatWithRetry({

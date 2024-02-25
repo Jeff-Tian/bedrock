@@ -5,7 +5,8 @@ const {
     getRecognition,
     getMessageType,
     getContent,
-    getMessageEventType
+    getMessageEventType,
+    getMediaId
 } = require("../../helpers/wechat");
 const convert = require('xml-js');
 
@@ -144,6 +145,10 @@ describe('wechat messages', () => {
 </xml>`
             const json = convert.xml2js(xml);
             assert.equal(getContent(json), '')
+        })
+
+        it('gets media id', () => {
+            assert.equal(getMediaId(json), 'media_id')
         })
     })
 

@@ -23,6 +23,9 @@ const wechatMessageHelper = {
 
         return xml.elements[0].elements.filter(e => e.name === 'MsgId')[0].elements[0].text;
     },
+    getMediaId: (xml) => {
+        return xml.elements[0].elements.filter(e => e.name === 'MediaId')[0].elements[0].cdata;
+    },
     getRecognition: (xml) => {
         const recognitionElement = xml.elements[0].elements.filter(e => e.name === 'Recognition');
         return recognitionElement ? (recognitionElement[0].elements ? recognitionElement[0].elements[0].cdata : '') : '';
