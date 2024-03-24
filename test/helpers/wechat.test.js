@@ -7,7 +7,7 @@ const {
     getContent,
     getMessageEventType,
     getMediaId
-} = require("../../helpers/wechat");
+} = require("../../helpers/wechat-message-helper");
 const convert = require('xml-js');
 
 describe('wechat messages', () => {
