@@ -115,6 +115,36 @@ sequenceDiagram
     本项目 ->> 微信用户: 展示消息和回答页面
 ```
 
+## 开发
+
+### 配置环境变量
+
+#### 本地环境变量
+
+本地开发需要配置环境变量，可以参考 `.env.example` 文件。将其复制为 `.env` 文件，并修改其中的环境变量。
+
+#### Kubernetes 环境变量
+
+如果新增或者修改了已有的环境变量值，需要同步修改最终部署到 k8s 环境中的环境变量值。这需要首先运行
+
+    ```bash
+    sops -d -i k8s/secrets.yaml
+    ```
+
+然后修改 `k8s/secrets.yaml` 文件，将其中的环境变量值修改为最新的值。最后，运行
+
+    ```bash
+    sops -e -i k8s/secrets.yaml
+    ```
+
+#### GitHub Actions 环境变量
+
+新增或者修改的环境变量值，需要同步修改 GitHub Actions 中的 Secret 值。
+
+#### AWS Lambda 环境中的环境变量
+
+新增或者修改的环境变量值，需要在部署时将改动应用到 AWS Lambda 中。这通过修改 [.github/workflows/lambda.yml] 文件中的环境变量值来实现。一般是在最后一步， 将从 GitHub Actions Secrets 中的 Secret 值应用到 AWS Lambda 中。
+
 ## 测试
 
 ```bash

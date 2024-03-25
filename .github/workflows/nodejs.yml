@@ -8,8 +8,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  schedule:
-    - cron: '0 */12 * * *'
+#  schedule:
+#    - cron: '0 */12 * * *'
 
 jobs:
   build:
@@ -81,6 +81,8 @@ jobs:
       - run: sops -d k8s/bedrock-secrets.yaml --aws-profile lambda-doc-rotary | kubectl apply -f -
       - run: kubectl apply -k k8s
       - run: kubectl set image deployment bedrock bedrock=jefftian/bedrock:${{ github.sha }}
+
+# disable as heroku costs money
 #
 #      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
 #        with:

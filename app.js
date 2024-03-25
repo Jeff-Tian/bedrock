@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const container = require('./container');
+const mp = require('@jeff-tian/mp')
 
 const {BedrockRuntimeClient} = require("@aws-sdk/client-bedrock-runtime");
 container.set('BedrockRuntimeClient', new BedrockRuntimeClient({
@@ -48,7 +49,16 @@ router.post('/message', async (ctx) => {
 
     let rtnMsg = '';
     if (!content) {
-        rtnMsg = '抱歉，我没听清楚你说什么。 附语音消息媒体id，可以调用获取临时素材接口拉取该媒体：' + getMediaId(json);
+        const mediaId = getMediaId(json);
+        rtnMsg = '抱歉，我没听清楚你说什么。 附语音消息媒体id，可以调用获取临时素材接口拉取该媒体：' + mediaId;
+
+        if (!!mediaId) {
+            console.log('fetching media by ', mediaId);
+            const media = await mp.fetchTempMedia(mediaId);
+            console.log('media = ', media);
+
+            rtnMsg += "\n media = " + JSON.stringify(media.data);
+        }
     } else {
         try {
             rtnMsg = await chatWithRetry({
