@@ -28,7 +28,13 @@ const router = require('@koa/router')();
 const convert = require('xml-js');
 
 const {koaBody} = require('koa-body');
-const {getFromUserName, getToUserName, getContent, getMessageId, getMediaId} = require("./helpers/wechat");
+const {
+    getFromUserName,
+    getToUserName,
+    getContent,
+    getMessageId,
+    getMediaId
+} = require("./helpers/wechat-message-helper");
 const {chatWithRetry, recall} = require("./ai/bedrock");
 
 app.use(koaBody({includeUnparsed: true}));
