@@ -30,6 +30,10 @@ describe('app', () => {
             sandbox.stub(axios, 'get').resolves({data: {}});
         })
 
+        afterEach(() => {
+            sandbox.restore();
+        })
+
         it('should return 200', async () => {
             // arrange
             const postBody = `<xml>

@@ -25,7 +25,7 @@ container.set('chats', {
 container.set('SessionDuration', 50);
 container.set('SessionCount', 3);
 
-const bedrock = require("../../ai/bedrock");
+const bedrock = require("../../ai/bedrock")();
 
 describe('bedrock chat', () => {
     describe('chat', () => {

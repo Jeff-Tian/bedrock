@@ -35,7 +35,7 @@ const {
     getMessageId,
     getMediaId
 } = require("./helpers/wechat-message-helper");
-const {chatWithRetry, recall} = require("./ai/bedrock");
+const {chatWithRetry, recall} = require("./ai/bedrock")();
 
 app.use(koaBody({includeUnparsed: true}));
 
