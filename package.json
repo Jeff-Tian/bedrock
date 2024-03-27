@@ -20,7 +20,6 @@
     "destroy": "cd sam&&export $(cat '.env' | xargs)&&AWS_PROFILE=lambda-doc-rotary sam delete"
   },
   "devDependencies": {
-    "axios": "^1.6.8",
     "chai": "4.0.0",
     "mocha": "^10.2.0",
     "sinon": "^17.0.1",

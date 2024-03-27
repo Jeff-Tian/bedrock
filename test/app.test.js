@@ -2,6 +2,8 @@ const request = require('supertest');
 const app = require('../app');
 const should = require('chai').should();
 const sinon = require('sinon');
+// must not install to devDependencies nor dependencies,
+// otherwise the sinon can't stub it!
 const axios = require("axios");
 
 describe('app', () => {
@@ -24,13 +26,17 @@ describe('app', () => {
     })
 
     const sandbox = sinon.createSandbox();
+    let clock;
 
     describe('post /message', () => {
         beforeEach(() => {
             sandbox.stub(axios, 'get').resolves({data: {}});
+            const now = new Date("2024-03-26"); // 设置你想要的日期
+            clock = sinon.useFakeTimers(now.getTime());
         })
 
         afterEach(() => {
+            clock.restore();
             sandbox.restore();
         })
 
